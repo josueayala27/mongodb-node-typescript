@@ -1,4 +1,4 @@
-/* Here all the routes are configured to run the app */
+/* Configuration of all my routes */
 
 import { Router } from 'express'
 import auth from './auth'

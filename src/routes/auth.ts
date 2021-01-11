@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express'
+import { HelloWorld } from '../controllers/HelloWorld/helloWorld'
 
 class AuthRoutes {
     router: Router
@@ -15,9 +16,16 @@ class AuthRoutes {
         res.json({ login: true })
     }
 
+    hello(req: Request, res: Response) {
+        let hello = new HelloWorld()
+        const response = hello.sayHi(req.body.greet)
+        res.json({ response })
+    }
+
     routes() {
         this.router.get('/login', this.login)
         this.router.get('/register', this.register)
+        this.router.post('/hi', this.hello)
     }
 }
 
