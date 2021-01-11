@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express'
-import { HelloWorld } from '../controllers/HelloWorld/helloWorld'
+import { AuthController } from '../controllers/auth.controller'
 
 class AuthRoutes {
     router: Router
@@ -8,24 +8,35 @@ class AuthRoutes {
         this.routes()
     }
 
-    register(req: Request, res: Response) {
-        res.json({ register: true })
+    async search(req: Request, res: Response) {
+        let auth = new AuthController()
+        const response = await auth.searchUser(req.body.email)
+        res.status(200).json({ response })
     }
 
-    login(req: Request, res: Response) {
-        res.json({ login: true })
+    async create(req: Request, res: Response) {
+        let auth = new AuthController()
+        const response = await auth.insertUser(req.body)
+        res.status(200).json({ response })
     }
 
-    hello(req: Request, res: Response) {
-        let hello = new HelloWorld()
-        const response = hello.sayHi(req.body.greet)
-        res.json({ response })
+    async delete(req: Request, res: Response) {
+        let auth = new AuthController()
+        const response = await auth.deleteUser(req.params.id)
+        res.status(200).json({ response })
+    }
+
+    async update(req: Request, res: Response) {
+        let auth = new AuthController()
+        const response = await auth.updateUser(req.params.id, req.body)
+        res.status(200).json({ response })
     }
 
     routes() {
-        this.router.get('/login', this.login)
-        this.router.get('/register', this.register)
-        this.router.post('/hi', this.hello)
+        this.router.post('/search', this.search)
+        this.router.post('/create', this.create)
+        this.router.delete('/delete/:id', this.delete)
+        this.router.put('/update/:id', this.update)
     }
 }
 

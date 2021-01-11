@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-new Schema({
+const AuthSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -17,3 +17,5 @@ new Schema({
         default: Date.now
     },
 })
+
+export default model('Auth', AuthSchema)
