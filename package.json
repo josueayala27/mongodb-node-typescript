@@ -6,7 +6,8 @@
     "scripts": {
         "serve": "nodemon",
         "build": "tsc",
-        "dev": "node dist/src/index"
+        "dev": "node dist/src/index",
+        "clear": "del dist"
     },
     "author": "mr.josue",
     "license": "ISC",
