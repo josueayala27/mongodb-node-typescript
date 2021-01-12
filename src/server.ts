@@ -4,12 +4,14 @@ import routes from './routes/index'
 import { Mongo } from './settings/mongo'
 const cors = require('cors');
 
-class Server {
+export class Server {
     public app: express.Application
     constructor() {
         this.app = express()
         this.config()
         this.routes()
+        /* Initializing the application */
+        this.start()
     }
 
     config() {
@@ -18,7 +20,7 @@ class Server {
         this.app.use(bodyParser.json())
         this.app.use(bodyParser.urlencoded({ extended: false }))
 
-        /* Mongo configuration */
+        /* Initializing mongo */
         new Mongo()
 
         /* CORS configuration */
@@ -37,5 +39,5 @@ class Server {
         })
     }
 }
-const server = new Server()
-server.start()
+/* const server = new Server() */
+

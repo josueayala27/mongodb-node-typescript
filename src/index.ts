@@ -1,10 +1,12 @@
+import { Server } from './server'
+
 class App {
     constructor() {
         this.init()
     }
 
     init() {
-        require('./server')
+        new Server()
     }
 }
 
