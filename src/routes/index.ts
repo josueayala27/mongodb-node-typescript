@@ -2,6 +2,7 @@
 
 import { Router } from 'express'
 import auth from './auth'
+import quiz from './quiz'
 
 class Routes {
     router: Router
@@ -13,6 +14,7 @@ class Routes {
     routes() {
         /* Routes configuration */
         this.router.use('/auth', auth)
+        this.router.use('/quiz', quiz)
     }
 }
 

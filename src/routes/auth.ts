@@ -8,15 +8,15 @@ class AuthRoutes {
         this.routes()
     }
 
-    async search(req: Request, res: Response) {
+    async login(req: Request, res: Response) {
         let auth = new AuthController()
-        const response = await auth.searchUser(req.body.email)
+        const response = await auth.login(req.body)
         res.status(200).json({ response })
     }
 
     async create(req: Request, res: Response) {
         let auth = new AuthController()
-        const response = await auth.insertUser(req.body)
+        const response = await auth.register(req.body)
         res.status(200).json({ response })
     }
 
@@ -33,7 +33,7 @@ class AuthRoutes {
     }
 
     routes() {
-        this.router.post('/search', this.search)
+        this.router.post('/login', this.login)
         this.router.post('/create', this.create)
         this.router.delete('/delete/:id', this.delete)
         this.router.put('/update/:id', this.update)

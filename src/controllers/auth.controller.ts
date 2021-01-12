@@ -1,17 +1,24 @@
 import Auth from '../schema/auth'
+const bcrypt = require('bcrypt')
 
 export class AuthController {
     constructor() {
 
     }
 
-    async insertUser(userInformation: {}) {
-        let auth = new Auth(userInformation)
+    /* Register user */
+    async register(userInformation: any) {
+        /* Encrypt password */
+        let { email, password } = userInformation
+        password = await bcrypt.hash(password, 10)
+        let data = { email, password }
+        /* return userInformation */
+        let auth = new Auth(data)
         try {
             let isSave = await auth.save()
-            return { error: false, isSave }
-        } catch (e) {
-            return { error: true, e }
+            return { error: false, message: "Successfully registered", isSave }
+        } catch (response) {
+            return { error: true, duplicate: true, message: "This email is already registered", response }
         }
     }
 
@@ -29,9 +36,12 @@ export class AuthController {
         return { error: false, user }
     }
 
-    async searchUser(email: {}) {
-        let user = await Auth.find({ email })
-        return { error: false, user }
+    async login(user: any) {
+        let { email, password } = user
+        let data: any = await Auth.findOne({ email })
+        let validation: boolean = await bcrypt.compare(password, data.password)
+        let message: string = validation ? "Correct fields" : "It seems that the username or password does not match any registry"
+        return { error: !validation, message, data }
     }
 
 }
