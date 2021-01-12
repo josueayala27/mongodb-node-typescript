@@ -20,9 +20,16 @@ class QuizRoutes {
         res.status(200).json({ response })
     }
 
+    async me(req: Request, res: Response) {
+        let auth = new QuizController()
+        const response = await auth.myQuiz(req.body.email)
+        res.status(200).json({ response })
+    }
+
     routes() {
         this.router.post('/create', this.create)
         this.router.post('/code/:code', this.code)
+        this.router.post('/me', this.me)
     }
 }
 

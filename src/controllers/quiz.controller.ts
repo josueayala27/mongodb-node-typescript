@@ -28,4 +28,11 @@ export class QuizController {
         return { error, message, data: quiz }
     }
 
+    async myQuiz(author: string) {
+        let myQuiz: any = await Quiz.find({ author })
+        let error: boolean = myQuiz.length == 0 ? true : false
+        let message: string = error ? "You have no quiz" : "Your quiz was found"
+        return { error, message, data: myQuiz }
+    }
+
 }
