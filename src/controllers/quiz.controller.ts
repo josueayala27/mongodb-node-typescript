@@ -35,4 +35,9 @@ export class QuizController {
         return { error, message, data: myQuiz }
     }
 
+    async updateQuiz(_id: string, body: any) {
+        let isUpdate = await Quiz.findOneAndUpdate({ _id }, body, { new: true })
+        return isUpdate
+    }
+
 }
